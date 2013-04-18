@@ -1,0 +1,91 @@
+CREATE TABLE  `a3930524_members`.`categories` (
+`id` INT( 3 ) NOT NULL AUTO_INCREMENT ,
+`name` VARCHAR( 24 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ,
+PRIMARY KEY (  `id` )
+) 
+
+
+CREATE TABLE  `a3930524_members`.`posts` (
+`id` INT( 6 ) NOT NULL AUTO_INCREMENT ,
+`cat_id` INT( 3 ) NOT NULL ,
+`title` VARCHAR( 255 ) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ,
+`contents` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL ,
+`date_posted` DATETIME NOT NULL DEFAULT  '0000-00-00 00:00:00',
+PRIMARY KEY (  `id` )
+) 
+
+Clean variant
+
+CREATE TABLE  `categories` (
+`id` INT( 3 ) NOT NULL AUTO_INCREMENT ,
+`name` VARCHAR( 24 ) NOT NULL ,
+PRIMARY KEY (  `id` )
+) 
+
+CREATE TABLE `posts` (
+`id` INT( 6 ) NOT NULL AUTO_INCREMENT ,
+`cat_id` INT( 3 ) NOT NULL ,
+`title` VARCHAR( 255 ) NOT NULL ,
+`contents` TEXT NOT NULL ,
+`date_posted` DATETIME NOT NULL DEFAULT  '0000-00-00 00:00:00',
+PRIMARY KEY (  `id` )
+) 
+
+Skapa en VIEW av frågan med inner join i funktionen get_posts part 8/11 5.10
+
+CREATE VIEW blog AS 
+SELECT posts.id AS post_id, categories.id AS category_id,
+               title, contents, date_posted, categories.name 
+               FROM posts INNER JOIN categories 
+               ON categories.`id` = posts.cat_id
+               ORDER BY posts.id DESC;
+
+Ny varianten
+SELECT posts.id AS post_id, categories.id AS category_id,
+               title, contents, date_posted, categories.name 
+               FROM posts INNER JOIN categories 
+               ON categories.`id` = posts.cat_id
+               WHERE posts.id = 34
+               ORDER BY posts.id DESC;
+
+
+
+Byt GET till POST i add_post.php //Testad get för att se i url vad som skickades med
+
+Array declaration PHP
+// Simple Array 
+$myArray = array('one', 'two', 'three'); 
+  
+// Associative 
+$myArray = array( 
+    'first' => 'Napoleon', 
+    'last'  => 'Dynamite'
+);
+
+In PHP 5.4, we can use a streamlined, bracket notation that JavaScript developers will immediately recognize!
+
+// Simple Array 
+$myArray = ['one', 'two', 'three']; 
+  
+// Associative 
+$myArray = [ 
+    'first' => 'Napoleon', 
+    'last'  => 'Dynamite'
+]; 
+
+PDO
+
+$conn = new PDO("mysql:host=localhost;dbname=myDatabase", $username, $password); 
+  
+ // Use real prepared statements. Don't emulate. 
+$conn->setAttribute(PDO::ATTR_EMULATE_PREPARES, false); 
+  
+$stmt = $conn->prepare('SELECT * from myTable WHERE id = :id'); 
+$stmt->execute([ 
+    ':id' => $_GET['id'] 
+]); 
+  
+$results = $stmt->fetchAll(PDO::FETCH_OBJ); 
+
+add_category funktion SQL
+INSERT INTO categories SET name = 'Java';
